@@ -21,6 +21,14 @@ const app = () => {
         song.play();
     })
 
+    //Stop and Play
+    const checkPlaying= song =>{
+        if(song.paused){
+            song.play();
+            play.src='./svg/pause.svg'
+        }
+    }
+
 }
 
 app();
