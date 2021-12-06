@@ -6,13 +6,12 @@ const app = () => {
 
     //SOUNDS
     const sounds= document.querySelectorAll('.sound-picker button');
-    //Time Disply
-    const timeDisplay= document.querySelector('.time-display');
-    //Length of outline
-    const outlineLength= outline.getTotalLength();
+    //Time Display
+    const timeDisplay = document.querySelector(".time-display");
+    const outlineLength = outline.getTotalLength();
     //Duration
     const timeSelect = document.querySelectorAll(".time-select button");
-    let fakeDuration=600;
+    let fakeDuration = 600;
 
     outline.style.strokeDasharray=outlineLength;
     outline.style.strokeDashoffset=outlineLength;
@@ -34,6 +33,21 @@ const app = () => {
     play.src = "./svg/play.svg";
   }
 };
+
+//animate the circle
+song.ontimeupdate = () => {
+    let currentTime= song.currentTime;
+    let elapsed= fakeDuration - currentTime;
+    let seconds= Math.floor(elapsed % 60); //Math.floor = exact number
+    let minutes= Math.floor(elapsed / 60);
+    
+    let progress = outlineLength - (currentTime / fakeDuration) * outlineLength;
+    outline.style.strokeDashoffset = progress;
+
+    //animate text
+    timeDisplay.textContent= `${minutes}:${seconds}`
+}
+
 
 
 }
