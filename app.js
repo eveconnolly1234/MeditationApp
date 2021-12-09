@@ -21,6 +21,14 @@ const app = () => {
         checkPlaying(song);
       });
 
+    //Select duration
+    timeSelect.forEach(option =>{
+        option.addEventListener('click', function(){
+            fakeDuration = this.getAttribute('data-time');
+            timeDisplay.textContent= `${Math.floor(fakeDuration / 60)}:${Math.floor(fakeDuration % 60)}`;
+        })
+    })
+
     //Stop and Play
    const checkPlaying = song => {
         if (song.paused) {
@@ -46,6 +54,14 @@ song.ontimeupdate = () => {
 
     //animate text
     timeDisplay.textContent= `${minutes}:${seconds}`
+
+    //prevent time going negative
+    if (currentTime >= fakeDuration){
+        song.pause();
+        song.currentTime=0;
+        play.src = './svg/play.svg';
+        video.pause();
+    }
 }
 
 
